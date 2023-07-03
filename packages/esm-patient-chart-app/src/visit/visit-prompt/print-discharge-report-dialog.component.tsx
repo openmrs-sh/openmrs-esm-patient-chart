@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, ModalBody, ModalFooter, ModalHeader } from '@carbon/react';
-import { printDischargeReport, showNotification, useVisit, Visit } from '@openmrs/esm-framework';
+import { openmrsObservableFetch, showNotification, useVisit, Visit } from '@openmrs/esm-framework';
 import styles from './end-visit-dialog.scss';
 
 interface PrintDischargeReportDialogProps {
@@ -26,8 +26,17 @@ const PrintDischargeReportDialog: React.FC<PrintDischargeReportDialogProps> = ({
     };
 
     const abortController = new AbortController();
-
-    printDischargeReport(printReportPayload, abortController).subscribe(
+    openmrsObservableFetch(
+      `/ws//module/report/discharge?patientUuid=${printReportPayload.patientUuid}&visitUuid=${printReportPayload.visitUuid}`,
+      {
+        signal: abortController.signal,
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/pdf',
+          Accept: '*/*',
+        },
+      },
+    ).subscribe(
       (response) => {
         if (response.status === 200) {
           response.blob().then((blob) => showInOtherTab(blob));
