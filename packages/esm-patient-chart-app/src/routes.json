@@ -23,6 +23,11 @@
       "slot": "patient-actions-slot"
     },
     {
+      "name": "print-discharge-report-button",
+      "component": "printDischargeReportActionButton",
+      "slot": "patient-actions-slot"
+    },
+    {
       "name": "mark-alive-button",
       "component": "markPatientAliveActionButton",
       "slot": "patient-actions-slot"
@@ -121,6 +126,10 @@
     {
       "name": "start-visit-dialog",
       "component": "startVisitDialog"
+    },
+    {
+      "name": "print-discharge-report-dialog",
+      "component": "printDischargeReportDialog"
     },
     {
       "name": "end-visit-dialog",

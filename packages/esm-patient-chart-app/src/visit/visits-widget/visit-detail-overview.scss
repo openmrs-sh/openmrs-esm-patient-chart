@@ -47,6 +47,21 @@
   }
 }
 
+.header {
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    & > div:last-child {
+      border-left: 1px solid $color-gray-30; 
+      padding-left: 3rem;
+      & > button {
+        margin-top: '-0.25rem'
+      }
+    }
+  }
+}
+
 .header::after {
   content: "";
   display: block;
@@ -171,4 +186,21 @@
 
 .notesContainer {
   margin-bottom: 2rem;
+}
+
+// Overriding styles for RTL support
+html[dir='rtl'] {
+  .header {
+    & > div {
+      & > div:last-child {
+        border-right: 1px solid $color-gray-30; 
+        padding-right: 3rem;
+        border-left: unset; 
+        padding-left: unset;
+        & > button {
+          margin-top: '-0.25rem'
+        }
+      }
+    }
+  }
 }

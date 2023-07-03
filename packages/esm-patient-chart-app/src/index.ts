@@ -88,6 +88,14 @@ export const stopVisitActionButton = getAsyncLifecycle(() => import('./actions-b
   moduleName,
 });
 
+export const printDischargeReportActionButton = getAsyncLifecycle(
+  () => import('./actions-buttons/print-discharge-report.component'),
+  {
+    featureName: 'patient-actions-slot',
+    moduleName,
+  },
+);
+
 export const markPatientAliveActionButton = getAsyncLifecycle(
   () => import('./actions-buttons/mark-patient-alive.component'),
   {
@@ -204,6 +212,14 @@ export const endVisitDialog = getAsyncLifecycle(() => import('./visit/visit-prom
   featureName: 'end visit',
   moduleName,
 });
+
+export const printDischargeReportDialog = getAsyncLifecycle(
+  () => import('./visit/visit-prompt/print-discharge-report-dialog.component'),
+  {
+    featureName: 'print discharge report visit',
+    moduleName,
+  },
+);
 
 export const confirmDeceasedDialog = getAsyncLifecycle(() => import('./deceased/confirmation-dialog.component'), {
   featureName: 'confirm death',
