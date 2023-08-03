@@ -18,6 +18,7 @@ interface CameraMediaUploaderModalProps {
   closeModal: () => void;
   onCompletion?: () => void;
   allowedExtensions: Array<string> | null;
+  withEncounter?: boolean;
 }
 
 const CameraMediaUploaderModal: React.FC<CameraMediaUploaderModalProps> = ({
@@ -28,6 +29,7 @@ const CameraMediaUploaderModal: React.FC<CameraMediaUploaderModalProps> = ({
   closeModal,
   onCompletion,
   allowedExtensions,
+  withEncounter,
 }) => {
   const [error, setError] = useState<Error>(undefined);
   const [filesToUpload, setFilesToUpload] = useState<Array<UploadedFile>>([]);
@@ -76,8 +78,8 @@ const CameraMediaUploaderModal: React.FC<CameraMediaUploaderModalProps> = ({
       return <FileReviewContainer onCompletion={startUploadingToServer} />;
     }
 
-    return <CameraMediaUploadTabs />;
-  }, [uploadFilesToServer, filesToUpload, startUploadingToServer]);
+    return <CameraMediaUploadTabs withEncounter={withEncounter} />;
+  }, [filesToUpload.length, startUploadingToServer, uploadFilesToServer, withEncounter]);
 
   return (
     <CameraMediaUploaderContext.Provider
@@ -104,7 +106,7 @@ const CameraMediaUploaderModal: React.FC<CameraMediaUploaderModalProps> = ({
   );
 };
 
-const CameraMediaUploadTabs = () => {
+const CameraMediaUploadTabs: React.FC<{ withEncounter: boolean | undefined }> = ({ withEncounter }) => {
   const { t } = useTranslation();
   const [view, setView] = useState('upload');
   const { cameraOnly, closeModal } = useContext(CameraMediaUploaderContext);
@@ -126,7 +128,14 @@ const CameraMediaUploadTabs = () => {
 
   return (
     <div className={styles.cameraSection}>
-      <ModalHeader closeModal={closeModal} title={t('addAttachment_title', 'Add Attachment')} />
+      <ModalHeader
+        closeModal={closeModal}
+        title={
+          withEncounter
+            ? t('addAttachment_title_encounter', 'Add an Attachment to the Encounter')
+            : t('addAttachment_title', 'Add Attachment')
+        }
+      />
       <ModalBody className={styles.modalBody}>
         <Tabs className={styles.tabs}>
           <TabList aria-label="Attachments-upload-section">

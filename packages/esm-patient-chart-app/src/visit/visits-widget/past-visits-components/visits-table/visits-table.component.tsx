@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash-es/isEmpty';
 import {
@@ -24,7 +24,7 @@ import {
   TableToolbarSearch,
   Tile,
 } from '@carbon/react';
-import { Edit, TrashCan } from '@carbon/react/icons';
+import { Edit, TrashCan, Document } from '@carbon/react/icons';
 import {
   formatDatetime,
   getConfig,
@@ -73,6 +73,14 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
       setHtmlFormEntryFormsConfig(config.htmlFormEntryForms as HtmlFormEntryForm[]);
     });
   });
+
+  const openAttachments = useCallback(
+    (encounterUuid: string) =>
+      navigate({
+        to: '${openmrsSpaBase}/patient/' + `${patientUuid}/chart/Attachments?encounterUuid=${encounterUuid}`,
+      }),
+    [patientUuid],
+  );
 
   const encounterTypes = [...new Set(visits.map((encounter) => encounter.encounterType))].sort();
 
@@ -294,6 +302,13 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
                                   }}
                                 />
                               )}
+                              <OverflowMenuItem
+                                size={desktopLayout ? 'sm' : 'lg'}
+                                className={styles.menuItem}
+                                itemText={t('addAnAttachmentToTheEncounter', 'Add an attachment to the encounter')}
+                                onClick={() => openAttachments(visits[index]?.id)}
+                                hasDivider
+                              />
                               {userHasAccess(visits[index]?.editPrivilege, session?.user) && (
                                 <OverflowMenuItem
                                   size={desktopLayout ? 'sm' : 'lg'}
@@ -336,6 +351,13 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
                                   {t('editThisEncounter', 'Edit this encounter')}
                                 </Button>
                               )}
+                              <Button
+                                kind="ghost"
+                                onClick={() => openAttachments(visits[index]?.id)}
+                                renderIcon={(props) => <Document size={16} {...props} />}
+                              >
+                                {t('addAnAttachmentToTheEncounter', 'Add an attachment to the encounter')}
+                              </Button>
                               <Button
                                 kind="danger--ghost"
                                 onClick={() => handleDeleteEncounter(visits[index]?.id, visits[index]?.form?.display)}

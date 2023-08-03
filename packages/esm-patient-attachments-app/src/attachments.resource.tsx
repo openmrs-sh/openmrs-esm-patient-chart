@@ -36,11 +36,17 @@ export function getAttachments(patientUuid: string, includeEncounterless: boolea
   });
 }
 
-export async function createAttachment(patientUuid: string, fileToUpload: UploadedFile) {
+export async function createAttachment(
+  patientUuid: string,
+  fileToUpload: UploadedFile,
+  encounterUuid: string | undefined = undefined,
+) {
   const formData = new FormData();
 
   formData.append('fileCaption', fileToUpload.fileName);
   formData.append('patient', patientUuid);
+
+  if (encounterUuid) formData.append('encounter', encounterUuid);
 
   if (fileToUpload.file) {
     formData.append('file', fileToUpload.file);

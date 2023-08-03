@@ -35,17 +35,28 @@ const AttachmentsOverview: React.FC<{ patientUuid: string }> = ({ patientUuid })
     }
   }, [error, t]);
 
-  const showCam = useCallback(() => {
-    const close = showModal('capture-photo-modal', {
-      saveFile: (file: UploadedFile) => createAttachment(patientUuid, file),
-      closeModal: () => {
-        close();
-      },
-      onCompletion: () => mutate(),
-      multipleFiles: true,
-      collectDescription: true,
-    });
-  }, [patientUuid, mutate]);
+  const showCam = useCallback(
+    (encounterUuid: string | undefined = undefined) => {
+      const close = showModal('capture-photo-modal', {
+        saveFile: (file: UploadedFile) => createAttachment(patientUuid, file, encounterUuid),
+        closeModal: () => {
+          close();
+        },
+        onCompletion: () => mutate(),
+        multipleFiles: true,
+        collectDescription: true,
+        withEncounter: !!encounterUuid,
+      });
+    },
+    [patientUuid, mutate],
+  );
+
+  useEffect(() => {
+    const windowSearch = window.location.search.split('=');
+    if (windowSearch.length > 0 && windowSearch[0].endsWith('encounterUuid')) {
+      showCam(windowSearch[1]);
+    }
+  }, [showCam]);
 
   const deleteAttachment = useCallback(
     (attachment: Attachment) => {
@@ -107,7 +118,7 @@ const AttachmentsOverview: React.FC<{ patientUuid: string }> = ({ patientUuid })
 
   return (
     <UserHasAccess privilege="View Attachments">
-      <div onDragOverCapture={showCam} className={styles.overview}>
+      <div onDragOverCapture={() => showCam()} className={styles.overview}>
         <div id="container">
           <CardHeader title={t('attachments', 'Attachments')}>
             <div className={styles.validatingDataIcon}>{isValidating && <Loading withOverlay={false} small />}</div>
@@ -121,7 +132,7 @@ const AttachmentsOverview: React.FC<{ patientUuid: string }> = ({ patientUuid })
                 </Switch>
               </ContentSwitcher>
               <div className={styles.divider} />
-              <Button kind="ghost" renderIcon={Add} iconDescription="Add attachment" onClick={showCam}>
+              <Button kind="ghost" renderIcon={Add} iconDescription="Add attachment" onClick={() => showCam()}>
                 {t('add', 'Add')}
               </Button>
             </div>
