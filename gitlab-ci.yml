@@ -1,0 +1,29 @@
+image: node:18-alpine
+stages:
+  - build
+  - pre-release
+  - trigger-distro-build
+
+build:
+  image: node:18-alpine
+  stage: build
+  tags:
+    - docker-runner
+  script:
+    - yarn install --immutable
+    # - yarn verify --passWithNoTests
+    - yarn build
+pre-release:
+  image: node:18-alpine
+  stage: pre-release
+  tags:
+    - docker-runner
+  script:
+    - yarn install --immutable
+    - yarn add semver
+    - npm version --no-git-tag-version  $(node -e "console.log(require('semver').inc(require('./package.json').version, 'patch'))")-pre.$CI_PIPELINE_ID
+    - yarn npm publish --tag next
+trigger_job:
+  stage: trigger-distro-build
+  trigger:
+    project: openmrs/ozone-simc
