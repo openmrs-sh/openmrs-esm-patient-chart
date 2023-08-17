@@ -78,6 +78,7 @@ dist
 # ignores for Yarn v3 w/o PNP
 .pnp.*
 .yarn/*
+packages/esm-patient-chart-app/.yarn/cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
