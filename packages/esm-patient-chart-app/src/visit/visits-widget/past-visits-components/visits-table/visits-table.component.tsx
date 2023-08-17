@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useCallback } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import isEmpty from 'lodash-es/isEmpty';
 import {
@@ -24,7 +24,7 @@ import {
   TableToolbarSearch,
   Tile,
 } from '@carbon/react';
-import { Edit, TrashCan, Document } from '@carbon/react/icons';
+import { Edit, TrashCan } from '@carbon/react/icons';
 import {
   formatDatetime,
   getConfig,
@@ -55,7 +55,7 @@ interface VisitTableProps {
 type FilterProps = {
   rowIds: Array<string>;
   headers: Array<DataTableHeader>;
-  cellsById: any;
+  cellsById: Record<string, Record<string, boolean | string | null | Record<string, unknown>>>;
   inputValue: string;
   getCellId: (row, key) => string;
 };
@@ -73,14 +73,6 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
       setHtmlFormEntryFormsConfig(config.htmlFormEntryForms as HtmlFormEntryForm[]);
     });
   });
-
-  const openAttachments = useCallback(
-    (encounterUuid: string) =>
-      navigate({
-        to: '${openmrsSpaBase}/patient/' + `${patientUuid}/chart/Attachments?encounterUuid=${encounterUuid}`,
-      }),
-    [patientUuid],
-  );
 
   const encounterTypes = [...new Set(visits.map((encounter) => encounter.encounterType))].sort();
 
@@ -152,7 +144,7 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
   const tableRows = useMemo(() => {
     return paginatedVisits?.map((encounter) => ({
       ...encounter,
-      datetime: formatDatetime(parseDate(encounter?.datetime)),
+      datetime: formatDatetime(parseDate(encounter.datetime)),
     }));
   }, [paginatedVisits]);
 
@@ -174,7 +166,7 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
               });
               mutateVisits?.();
             })
-            .catch((error) => {
+            .catch(() => {
               showToast({
                 title: t('error', 'Error'),
                 description: `Encounter ${t('failedDeleting', "couldn't be deleted")}`,
@@ -264,116 +256,119 @@ const VisitTable: React.FC<VisitTableProps> = ({ showAllEncounters, visits, pati
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row, index) => (
-                  <React.Fragment key={row.id}>
-                    <TableExpandRow {...getRowProps({ row })}>
-                      {row.cells.map((cell) => (
-                        <TableCell key={cell.id}>{cell.value}</TableCell>
-                      ))}
-                      {showAllEncounters ? (
-                        <TableCell className="cds--table-column-menu">
-                          <Layer className={styles.layer}>
-                            <OverflowMenu
-                              data-floating-menu-container
-                              ariaLabel="Encounter table actions menu"
-                              size={desktopLayout ? 'sm' : 'lg'}
-                              flipped
-                            >
-                              <OverflowMenuItem
+                {rows.map((row) => {
+                  const selectedVisit = visits.find((visit) => visit.id === row.id);
+
+                  return (
+                    <React.Fragment key={row.id}>
+                      <TableExpandRow {...getRowProps({ row })}>
+                        {row.cells.map((cell) => (
+                          <TableCell key={cell.id}>{cell.value}</TableCell>
+                        ))}
+                        {showAllEncounters ? (
+                          <TableCell className="cds--table-column-menu">
+                            <Layer className={styles.layer}>
+                              <OverflowMenu
+                                data-floating-menu-container
+                                ariaLabel="Encounter table actions menu"
                                 size={desktopLayout ? 'sm' : 'lg'}
-                                className={styles.menuItem}
-                                itemText={t('goToThisEncounter', 'Go to this encounter')}
-                              />
-                              {userHasAccess(visits[index]?.editPrivilege, session?.user) && visits[index]?.form?.uuid && (
+                                flipped
+                              >
                                 <OverflowMenuItem
-                                  className={styles.menuItem}
-                                  itemText={t('editThisEncounter', 'Edit this encounter')}
-                                  size={desktopLayout ? 'sm' : 'lg'}
-                                  onClick={() => {
-                                    launchWorkspace(
-                                      visits[index]?.form?.uuid,
-                                      visits[index]?.visitUuid,
-                                      visits[index]?.id,
-                                      visits[index]?.form?.display,
-                                      visits[index]?.visitTypeUuid,
-                                      visits[index]?.visitStartDatetime,
-                                      visits[index]?.visitStopDatetime,
-                                    );
-                                  }}
+                                 size={desktopLayout ? 'sm' : 'lg'}
+                                 className={styles.menuItem}
+                                 itemText={t('addAnAttachmentToTheEncounter', 'Add an attachment to the encounter')}
+                                 onClick={() => openAttachments(visits[index]?.id)}
+                                 hasDivider
                                 />
-                              )}
-                              <OverflowMenuItem
-                                size={desktopLayout ? 'sm' : 'lg'}
-                                className={styles.menuItem}
-                                itemText={t('addAnAttachmentToTheEncounter', 'Add an attachment to the encounter')}
-                                onClick={() => openAttachments(visits[index]?.id)}
-                                hasDivider
-                              />
-                              {userHasAccess(visits[index]?.editPrivilege, session?.user) && (
                                 <OverflowMenuItem
                                   size={desktopLayout ? 'sm' : 'lg'}
                                   className={styles.menuItem}
-                                  itemText={t('deleteThisEncounter', 'Delete this encounter')}
-                                  onClick={() => {
-                                    handleDeleteEncounter(visits[index]?.id, visits[index]?.form?.display);
-                                  }}
-                                  hasDivider
-                                  isDelete
+                                  itemText={t('goToThisEncounter', 'Go to this encounter')}
                                 />
-                              )}
-                            </OverflowMenu>
-                          </Layer>
-                        </TableCell>
-                      ) : null}
-                    </TableExpandRow>
-                    {row.isExpanded ? (
-                      <TableExpandedRow className={styles.expandedRow} colSpan={headers.length + 2}>
-                        <>
-                          <EncounterObservations observations={visits[index].obs} />
-                          {userHasAccess(visits[index]?.editPrivilege, session?.user) && (
-                            <>
-                              {visits[index]?.form?.uuid && (
+                                {userHasAccess(selectedVisit?.editPrivilege, session?.user) &&
+                                  selectedVisit?.form?.uuid && (
+                                    <OverflowMenuItem
+                                      className={styles.menuItem}
+                                      itemText={t('editThisEncounter', 'Edit this encounter')}
+                                      size={desktopLayout ? 'sm' : 'lg'}
+                                      onClick={() => {
+                                        launchWorkspace(
+                                          selectedVisit?.form?.uuid,
+                                          selectedVisit?.visitUuid,
+                                          selectedVisit?.id,
+                                          selectedVisit?.form?.display,
+                                          selectedVisit?.visitTypeUuid,
+                                          selectedVisit?.visitStartDatetime,
+                                          selectedVisit?.visitStopDatetime,
+                                        );
+                                      }}
+                                    />
+                                  )}
+                                {userHasAccess(selectedVisit?.editPrivilege, session?.user) && (
+                                  <OverflowMenuItem
+                                    size={desktopLayout ? 'sm' : 'lg'}
+                                    className={styles.menuItem}
+                                    itemText={t('deleteThisEncounter', 'Delete this encounter')}
+                                    onClick={() => handleDeleteEncounter(selectedVisit.id, selectedVisit.form?.display)}
+                                    hasDivider
+                                    isDelete
+                                  />
+                                )}
+                              </OverflowMenu>
+                            </Layer>
+                          </TableCell>
+                        ) : null}
+                      </TableExpandRow>
+                      {row.isExpanded ? (
+                        <TableExpandedRow className={styles.expandedRow} colSpan={headers.length + 2}>
+                          <>
+                            <EncounterObservations observations={selectedVisit?.obs} />
+                            {userHasAccess(selectedVisit?.editPrivilege, session?.user) && (
+                              <>
+                                {selectedVisit?.form?.uuid && (
+                                  <Button
+                                    kind="ghost"
+                                    onClick={() => {
+                                      launchWorkspace(
+                                        selectedVisit.form.uuid,
+                                        selectedVisit.visitUuid,
+                                        selectedVisit.id,
+                                        selectedVisit.form.display,
+                                        selectedVisit.visitTypeUuid,
+                                        selectedVisit?.visitStartDatetime,
+                                        selectedVisit?.visitStopDatetime,
+                                      );
+                                    }}
+                                    renderIcon={(props) => <Edit size={16} {...props} />}
+                                  >
+                                    {t('editThisEncounter', 'Edit this encounter')}
+                                  </Button>
+                                )}
                                 <Button
                                   kind="ghost"
-                                  onClick={() => {
-                                    launchWorkspace(
-                                      visits[index].form.uuid,
-                                      visits[index].visitUuid,
-                                      visits[index].id,
-                                      visits[index].form.display,
-                                      visits[index].visitTypeUuid,
-                                      visits[index]?.visitStartDatetime,
-                                      visits[index]?.visitStopDatetime,
-                                    );
-                                  }}
-                                  renderIcon={(props) => <Edit size={16} {...props} />}
-                                >
-                                  {t('editThisEncounter', 'Edit this encounter')}
+                                  onClick={() => openAttachments(visits[index]?.id)}
+                                  renderIcon={(props) => <Document size={16} {...props} />}
+                                 >
+                                  {t('addAnAttachmentToTheEncounter', 'Add an attachment to the encounter')}
                                 </Button>
-                              )}
-                              <Button
-                                kind="ghost"
-                                onClick={() => openAttachments(visits[index]?.id)}
-                                renderIcon={(props) => <Document size={16} {...props} />}
-                              >
-                                {t('addAnAttachmentToTheEncounter', 'Add an attachment to the encounter')}
-                              </Button>
-                              <Button
-                                kind="danger--ghost"
-                                onClick={() => handleDeleteEncounter(visits[index]?.id, visits[index]?.form?.display)}
-                                renderIcon={(props) => <TrashCan size={16} {...props} />}
-                              >
-                                {t('deleteThisEncounter', 'Delete this encounter')}
-                              </Button>
-                            </>
-                          )}
-                        </>
-                      </TableExpandedRow>
-                    ) : (
-                      <TableExpandedRow className={styles.hiddenRow} colSpan={headers.length + 2} />
-                    )}
-                  </React.Fragment>
-                ))}
+                                <Button
+                                  kind="danger--ghost"
+                                  onClick={() => handleDeleteEncounter(selectedVisit?.id, selectedVisit?.form?.display)}
+                                  renderIcon={(props) => <TrashCan size={16} {...props} />}
+                                >
+                                  {t('deleteThisEncounter', 'Delete this encounter')}
+                                </Button>
+                              </>
+                            )}
+                          </>
+                        </TableExpandedRow>
+                      ) : (
+                        <TableExpandedRow className={styles.hiddenRow} colSpan={headers.length + 2} />
+                      )}
+                    </React.Fragment>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>
