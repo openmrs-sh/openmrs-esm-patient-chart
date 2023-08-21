@@ -23,10 +23,13 @@ pre-release:
   script:
     - apk update && apk add git
     - git --version
+    - yarn install
+    - yarn up
     - cd ./packages/esm-patient-chart-app/
     - yarn add semver
     - yarn add -D webpack-cli
     - yarn install
+    - yarn up
     - yarn run build    
     - npm version --legacy-peer-deps --no-git-tag-version "$(node -e "console.log(require('semver').inc(require('./package.json').version, 'patch'))")-pre.$CI_PIPELINE_ID"
     - yarn npm publish --tag next
@@ -35,4 +38,4 @@ trigger_job:
   only:
     - main
   trigger:
-    project: openmrs/openmrs-simc-distro-referenceapplication
+    project: openmrs/ozone-simc
