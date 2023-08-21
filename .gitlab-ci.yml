@@ -10,7 +10,9 @@ build:
   tags:
     - docker-runner
   script:
-    - yarn install --immutable
+    - yarn install
+    - cd ./packages/esm-patient-chart-app/
+    - yarn install
     # - yarn verify --passWithNoTests
     - yarn build
 pre-release:
@@ -19,13 +21,13 @@ pre-release:
   tags:
     - docker-runner
   script:
-    - yarn_output=$(yarn install --immutable 2>&1)
-    - log_file_path=$(echo "$yarn_output" | grep -oP '(?<=logs can be found here: ).*')
-    - echo "$log_file_path"
-    -  cat "$log_file_path"
-    - yarn install --immutable
+    - apk update && apk add git
+    - git --version
+    - cd ./packages/esm-patient-chart-app/
     - yarn add semver
-    - npm version --no-git-tag-version  $(node -e "console.log(require('semver').inc(require('./package.json').version, 'patch'))")-pre.$CI_PIPELINE_ID
+    - yarn install
+    - yarn run build    
+    - npm version --legacy-peer-deps --no-git-tag-version "$(node -e "console.log(require('semver').inc(require('./package.json').version, 'patch'))")-pre.$CI_PIPELINE_ID"
     - yarn npm publish --tag next
 trigger_job:
   stage: trigger-distro-build
