@@ -1,8 +1,8 @@
 image: node:18-alpine
 stages:
   - build
-  - pre-release
-  - trigger-distro-build
+  - package-publish
+  # - trigger-distro-build
 
 build:
   image: node:18-alpine
@@ -10,29 +10,30 @@ build:
   tags:
     - docker-runner
   script:
-    - yarn install
-    - cd ./packages/esm-patient-chart-app/
-    - yarn install
-    # - yarn verify --passWithNoTests
-    - yarn build
-pre-release:
-  image: node:18-alpine
-  stage: pre-release
-  tags:
-    - docker-runner
-  script:
     - apk update && apk add git
-    - git --version
+    - yarn install
+    - yarn up
     - cd ./packages/esm-patient-chart-app/
     - yarn add semver
     - yarn add -D webpack-cli
     - yarn install
+    - yarn up
     - yarn run build    
+  artifacts:
+    paths:
+      - packages/esm-patient-chart-app/
+pre-release:
+  image: node:18-alpine
+  stage: package-publish
+  tags:
+    - docker-runner
+  script:
+    - cd ./packages/esm-patient-chart-app/
     - npm version --legacy-peer-deps --no-git-tag-version "$(node -e "console.log(require('semver').inc(require('./package.json').version, 'patch'))")-pre.$CI_PIPELINE_ID"
     - yarn npm publish --tag next
-trigger_job:
-  stage: trigger-distro-build
-  only:
-    - main
-  trigger:
-    project: openmrs/openmrs-simc-distro-referenceapplication
+# trigger_job:
+#   stage: trigger-distro-build
+#   only:
+#     - main
+#   trigger:
+#     project: openmrs/ozone-simc
