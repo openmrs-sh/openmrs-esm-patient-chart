@@ -32,5 +32,7 @@ pre-release:
     - yarn npm publish --tag next
 trigger_job:
   stage: trigger-distro-build
+  only:
+    - main
   trigger:
-    project: openmrs/ozone-simc
+    project: openmrs/openmrs-simc-distro-referenceapplication
