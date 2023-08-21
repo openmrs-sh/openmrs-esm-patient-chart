@@ -18,6 +18,14 @@ build:
     - yarn install
     - yarn up
     - yarn run build
+  cache:
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - node_modules/
+      - .yarn/cache/
+      - packages/esm-patient-chart-app/node_modules/
+      - packages/esm-patient-chart-app/.yarn/cache/
+    untracked: true
   artifacts:
     paths:
       - packages/esm-patient-chart-app/
