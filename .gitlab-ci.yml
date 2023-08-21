@@ -25,6 +25,7 @@ pre-release:
     - git --version
     - cd ./packages/esm-patient-chart-app/
     - yarn add semver
+    - yarn add -D webpack-cli
     - yarn install
     - yarn run build    
     - npm version --legacy-peer-deps --no-git-tag-version "$(node -e "console.log(require('semver').inc(require('./package.json').version, 'patch'))")-pre.$CI_PIPELINE_ID"
