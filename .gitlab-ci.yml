@@ -4,14 +4,17 @@ stages:
   - package-publish
   - trigger-distro-build
 
-cache:
-  key: "Frontend-cache"
-  paths:
-    - node_modules/
-    - .yarn/cache/
-    - packages/esm-patient-chart-app/node_modules/
-    - packages/esm-patient-chart-app/.yarn/cache/
-  untracked: true
+default:
+  cache: &default_cache
+    key: "Frontend-cache"
+    paths:
+      - node_modules/
+      - .yarn/cache/
+      - yarn.lock
+      - packages/esm-patient-chart-app/node_modules/
+      - packages/esm-patient-chart-app/.yarn/cache/
+      - packages/esm-patient-chart-app/dist/
+      - packages/esm-patient-chart-app/yarn.lock
 
 build:
   image: node:18-alpine
@@ -27,10 +30,9 @@ build:
     - yarn install
     - yarn up
     - yarn run build
-  artifacts:
-    paths:
-      - packages/esm-patient-chart-app/
-pre-release:
+  cache:
+   <<: *default_cache
+package-publish:
   image: node:18-alpine
   stage: package-publish
   tags:
@@ -40,6 +42,9 @@ pre-release:
     - cd ./packages/esm-patient-chart-app/
     - npm version --legacy-peer-deps --no-git-tag-version "$(node -e "console.log(require('semver').inc(require('./package.json').version, 'patch'))")-pre.$CI_PIPELINE_ID"
     - yarn npm publish --tag next
+  cache:
+    <<: *default_cache
+    policy: pull
 trigger_job:
   stage: trigger-distro-build
   only:
