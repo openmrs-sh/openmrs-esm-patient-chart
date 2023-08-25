@@ -11,10 +11,16 @@ default:
       - node_modules/
       - .yarn/cache/
       - yarn.lock
+
       - packages/esm-patient-chart-app/node_modules/
       - packages/esm-patient-chart-app/.yarn/cache/
       - packages/esm-patient-chart-app/dist/
       - packages/esm-patient-chart-app/yarn.lock
+
+      - packages/esm-patient-attachments-app/node_modules/
+      - packages/esm-patient-attachments-app/.yarn/cache/
+      - packages/esm-patient-attachments-app/dist/
+      - packages/esm-patient-attachments-app/yarn.lock
 
 build:
   image: node:18-alpine
@@ -22,14 +28,16 @@ build:
   tags:
     - docker-runner
   script:
+    - yarn config set -H enableImmutableInstalls false
     - yarn install
-    - yarn up
+    - yarn up @openmrs/openmrs-form-engine-lib@next
     - cd ./packages/esm-patient-chart-app/
-    - yarn add semver
-    - yarn add -D webpack-cli
     - yarn install
-    - yarn up
-    - yarn run build
+    - yarn run build &
+    - cd ../../packages/esm-patient-attachments-app/
+    - yarn install
+    - yarn run build &
+    - wait
   cache:
    <<: *default_cache
 package-publish:
@@ -42,6 +50,10 @@ package-publish:
     - cd ./packages/esm-patient-chart-app/
     - npm version --legacy-peer-deps --no-git-tag-version "$(node -e "console.log(require('semver').inc(require('./package.json').version, 'patch'))")-pre.$CI_PIPELINE_ID"
     - yarn npm publish --tag next
+    - cd ../../packages/esm-patient-attachments-app/
+    - npm version --legacy-peer-deps --no-git-tag-version "$(node -e "console.log(require('semver').inc(require('./package.json').version, 'patch'))")-pre.$CI_PIPELINE_ID"
+    - yarn npm publish --tag next
+    - wait
   cache:
     <<: *default_cache
     policy: pull
