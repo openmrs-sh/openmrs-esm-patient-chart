@@ -37,6 +37,7 @@
     "url": "https://github.com/openmrs/openmrs-esm-patient-chart/issues"
   },
   "dependencies": {
+    "@openmrs/esm-patient-common-lib": "next",
     "lodash-es": "^4.17.15",
     "semver": "^7.5.4",
     "uuid": "^8.3.2"
@@ -58,5 +59,8 @@
     "@types/uuid": "^8.3.0",
     "webpack": "^5.74.0",
     "webpack-cli": "^5.1.4"
+  },
+  "resolutions": {
+    "@carbon/react": "1.12.0"
   }
 }

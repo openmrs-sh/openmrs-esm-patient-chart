@@ -3014,6 +3014,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@carbon/colors@npm:^11.19.0":
+  version: 11.19.0
+  resolution: "@carbon/colors@npm:11.19.0"
+  checksum: ea0448e90e05768c615af71955e5fe4435583e3637d039912336ba8b123fbbd841078df98cb71e56ebb0a0be04c88fed3fe34408585bdf3a11cb6297b9ce14b5
+  languageName: node
+  linkType: hard
+
 "@carbon/colors@npm:^11.6.0, @carbon/colors@npm:^11.8.0":
   version: 11.8.0
   resolution: "@carbon/colors@npm:11.8.0"
@@ -3025,6 +3032,20 @@ __metadata:
   version: 0.15.0
   resolution: "@carbon/feature-flags@npm:0.15.0"
   checksum: 211827fec11ec29140ef783a025cc3b466c4f94bab7ca9a0f5eb0a84332919ca58f7a885813d4cdf441c9be0e998bc493a819c3c7124da1f24771ce65ab2c42c
+  languageName: node
+  linkType: hard
+
+"@carbon/feature-flags@npm:^0.16.0":
+  version: 0.16.0
+  resolution: "@carbon/feature-flags@npm:0.16.0"
+  checksum: 1fb964311f240c65fd57ee5971234b0c7b665d660b89ac931d0acc3d140ae0bed1b04eb8fc629f675a307be9579d9c4de317987749878b5a48bb364cbffd85d1
+  languageName: node
+  linkType: hard
+
+"@carbon/feature-flags@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "@carbon/feature-flags@npm:0.8.0"
+  checksum: 40b108df666e7d7c28304227cce6e2d6c956c9670e534d6bb52fd5e0bdab236c34fbcd1c953df7b9af0305f2931b4cfe250138db68fafaaf50adf91f5b8e17e1
   languageName: node
   linkType: hard
 
@@ -3041,6 +3062,15 @@ __metadata:
   dependencies:
     "@carbon/layout": ^11.16.1
   checksum: 70475ec21a7614c1c1ceca691b2e59f7d54115c222027f485120f89606aa97710bbe88d51c1db0509cd4bc94acf3914e9d48ca7e78b11ade8ca6498889385987
+  languageName: node
+  linkType: hard
+
+"@carbon/grid@npm:^11.19.0":
+  version: 11.19.0
+  resolution: "@carbon/grid@npm:11.19.0"
+  dependencies:
+    "@carbon/layout": ^11.19.0
+  checksum: c49a85e4784993a678db72c7825e0bf4e2c7ca23167ba074522e2ecca43578472b29327ad88ff6682931d500b5e981da41a9a266fff204a95ed69c1e8b082c1c
   languageName: node
   linkType: hard
 
@@ -3071,6 +3101,13 @@ __metadata:
   version: 10.42.1
   resolution: "@carbon/icon-helpers@npm:10.42.1"
   checksum: 98981041d7fb44258c227825eb704b0f25fc6f1cc84d500d5cf0feba71307f5c1e1734f37608c9bb9836b5c864bafc8c6aa9f422f99250f662f67ad2c87708f7
+  languageName: node
+  linkType: hard
+
+"@carbon/icon-helpers@npm:^10.44.0":
+  version: 10.44.0
+  resolution: "@carbon/icon-helpers@npm:10.44.0"
+  checksum: c61b711ef78ba5546514917571ccec01c0943a2dc53d34a90987985bd839de7c164ce7bf9890d21012e585c1a655f6a5a9ac88492af4345653f095f9ddebe54a
   languageName: node
   linkType: hard
 
@@ -3113,10 +3150,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@carbon/icons-react@npm:^11.7.0":
+  version: 11.25.0
+  resolution: "@carbon/icons-react@npm:11.25.0"
+  dependencies:
+    "@carbon/icon-helpers": ^10.44.0
+    "@carbon/telemetry": 0.1.0
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: ">=16"
+  checksum: eaffc943b329cb1982b8f49820c60a5fd5042f43873ec9b1f2e85d28ec05cc06d9ab8c416015f527a8477a9e7a09a8a1b8b58ad18686c652a64af56305f7b426
+  languageName: node
+  linkType: hard
+
 "@carbon/layout@npm:^11.16.1":
   version: 11.16.1
   resolution: "@carbon/layout@npm:11.16.1"
   checksum: 83660f70dbbdac09bd3fb9d94c3c9c53b84557fb88f011452db84939a898d28bd57030e6c233088b6a9f68dfec8f76bdc073945b922d4bfdc76e055787201a65
+  languageName: node
+  linkType: hard
+
+"@carbon/layout@npm:^11.19.0, @carbon/layout@npm:^11.5.0":
+  version: 11.19.0
+  resolution: "@carbon/layout@npm:11.19.0"
+  checksum: 9786a9d13fc81132c33a05019fae1d6ed786739a285e276f76857d30bba7b5a58cb093c700fb7c8b697d7a199459c398f842d6a42351d02c3d67e7961fadd901
   languageName: node
   linkType: hard
 
@@ -3134,10 +3191,50 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@carbon/motion@npm:^11.15.0":
+  version: 11.15.0
+  resolution: "@carbon/motion@npm:11.15.0"
+  checksum: 985a559324fb4cb6b1df50ead3d9c1ceefec338f075f5cca4a9d937888cb6b357207a20493807eed47627e41529de215e4b51e0e217eee12970c1b8da2ce1b90
+  languageName: node
+  linkType: hard
+
 "@carbon/motion@npm:^11.5.0":
   version: 11.5.0
   resolution: "@carbon/motion@npm:11.5.0"
   checksum: a0c583ce0a9370beb08061463566a3b41c427190d297cdad1631384a27e241334640afdd246b9c0fca62f58d51e8a5b8c7954a234118195f403cd8c13c8a1f09
+  languageName: node
+  linkType: hard
+
+"@carbon/react@npm:1.12.0":
+  version: 1.12.0
+  resolution: "@carbon/react@npm:1.12.0"
+  dependencies:
+    "@babel/runtime": ^7.18.3
+    "@carbon/feature-flags": ^0.8.0
+    "@carbon/icons-react": ^11.7.0
+    "@carbon/layout": ^11.5.0
+    "@carbon/styles": ^1.12.0
+    "@carbon/telemetry": 0.1.0
+    classnames: 2.3.1
+    copy-to-clipboard: ^3.3.1
+    downshift: 5.2.1
+    flatpickr: 4.6.9
+    invariant: ^2.2.3
+    lodash.debounce: ^4.0.8
+    lodash.findlast: ^4.5.0
+    lodash.isequal: ^4.5.0
+    lodash.omit: ^4.5.0
+    lodash.throttle: ^4.1.1
+    prop-types: ^15.7.2
+    react-is: ^17.0.2
+    use-resize-observer: ^6.0.0
+    wicg-inert: ^3.1.1
+    window-or-global: ^1.0.1
+  peerDependencies:
+    react: ^16.8.6 || ^17.0.1
+    react-dom: ^16.8.6 || ^17.0.1
+    sass: ^1.33.0
+  checksum: ec723fc7f57fc3f03836d302fc22d2fbbb3376d567ee6657b693761e78f21bcaf89c6236d57e141cf7dd53e13df026dbf2bbd68f2d363f30d7a9f1d6733f68ca
   languageName: node
   linkType: hard
 
@@ -3204,6 +3301,27 @@ __metadata:
     react-dom: ^16.8.6 || ^17.0.1 || ^18.2.0
     sass: ^1.33.0
   checksum: 8ad250ef7363e1369a3da9c22a910b42adb2501aa5b88d0dbf25be5e4f005d9a5c9b07222a272d9c34e8a01886dc23c1b400350743c596131ad66a2fbffa6cd3
+  languageName: node
+  linkType: hard
+
+"@carbon/styles@npm:^1.12.0":
+  version: 1.36.0
+  resolution: "@carbon/styles@npm:1.36.0"
+  dependencies:
+    "@carbon/colors": ^11.19.0
+    "@carbon/feature-flags": ^0.16.0
+    "@carbon/grid": ^11.19.0
+    "@carbon/layout": ^11.19.0
+    "@carbon/motion": ^11.15.0
+    "@carbon/themes": ^11.24.0
+    "@carbon/type": ^11.23.0
+    "@ibm/plex": 6.0.0-next.6
+  peerDependencies:
+    sass: ^1.33.0
+  peerDependenciesMeta:
+    sass:
+      optional: true
+  checksum: d522bdcac2e1104426014db71fbe69c1f6d00194403cd108eb986cee66760ac86a965acdcc1deb1493f21b15fb38815cba16f820cd62cf0cff7528e4a89fbd7a
   languageName: node
   linkType: hard
 
@@ -3297,6 +3415,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@carbon/themes@npm:^11.24.0":
+  version: 11.24.0
+  resolution: "@carbon/themes@npm:11.24.0"
+  dependencies:
+    "@carbon/colors": ^11.19.0
+    "@carbon/layout": ^11.19.0
+    "@carbon/type": ^11.23.0
+    color: ^4.0.0
+  checksum: 709739b4e7dab3078c8c5340fd5248edd64959c104ba469164bb6cfe1317425bf724deec2267e0aa63398e4c1ead667a38a8849c73813f93fcd5b2de2e6c0d8c
+  languageName: node
+  linkType: hard
+
 "@carbon/type@npm:^11.10.0, @carbon/type@npm:^11.11.0":
   version: 11.11.0
   resolution: "@carbon/type@npm:11.11.0"
@@ -3314,6 +3444,16 @@ __metadata:
     "@carbon/grid": ^11.16.1
     "@carbon/layout": ^11.16.1
   checksum: ff08229e71ccb40f420cbc94ac79b63449d4a77d777619383fcc4e44e9e34792158e85a0b170418b50165a130e712155765025dc939625658db285dcaa7bc166
+  languageName: node
+  linkType: hard
+
+"@carbon/type@npm:^11.23.0":
+  version: 11.23.0
+  resolution: "@carbon/type@npm:11.23.0"
+  dependencies:
+    "@carbon/grid": ^11.19.0
+    "@carbon/layout": ^11.19.0
+  checksum: 2235dce83d4cc7d4dabb625e33e24a59643e8da297fadcef1ebbd37beba10bb6d4e4508b5b52e7ca26d6afea29631174451bda5064cc484722715564cee83234
   languageName: node
   linkType: hard
 
@@ -5749,8 +5889,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openmrs/esm-patient-attachments-app@workspace:packages/esm-patient-attachments-app"
   dependencies:
-    "@carbon/react": ^1.12.0
-    "@openmrs/esm-patient-common-lib": ^5.0.0
+    "@carbon/react": 1.12.0
+    "@openmrs/esm-patient-common-lib": next
     lodash-es: ^4.17.15
     react-grid-gallery: ^0.5.5
     react-html5-camera-photo: ^1.5.4
@@ -5771,7 +5911,7 @@ __metadata:
   resolution: "@openmrs/esm-patient-banner-app@workspace:packages/esm-patient-banner-app"
   dependencies:
     "@carbon/react": ^1.12.0
-    "@openmrs/esm-patient-common-lib": ^5.0.0
+    "@openmrs/esm-patient-common-lib": next
     lodash-es: ^4.17.15
     webpack: ^5.74.0
   peerDependencies:
@@ -5791,7 +5931,7 @@ __metadata:
   dependencies:
     "@carbon/charts-react": ^1.5.2
     "@carbon/react": ^1.12.0
-    "@openmrs/esm-patient-common-lib": ^5.0.0
+    "@openmrs/esm-patient-common-lib": next
     d3: ^7.6.1
     lodash-es: ^4.17.15
     webpack: ^5.74.0
@@ -5810,11 +5950,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openmrs/esm-patient-chart-app@workspace:packages/esm-patient-chart-app"
   dependencies:
+    "@openmrs/esm-patient-common-lib": next
     "@types/uuid": ^8.3.0
     lodash-es: ^4.17.15
     semver: ^7.5.4
     uuid: ^8.3.2
     webpack: ^5.74.0
+    webpack-cli: ^5.1.4
   peerDependencies:
     "@carbon/react": 1.x
     "@openmrs/esm-framework": 5.x
@@ -5892,7 +6034,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openmrs/esm-patient-common-lib@^5.0.0, @openmrs/esm-patient-common-lib@workspace:packages/esm-patient-common-lib":
+"@openmrs/esm-patient-common-lib@npm:next":
+  version: 5.0.1-pre.2354
+  resolution: "@openmrs/esm-patient-common-lib@npm:5.0.1-pre.2354"
+  dependencies:
+    "@carbon/react": ^1.12.0
+    lodash-es: ^4.17.15
+    uuid: ^8.3.2
+  peerDependencies:
+    "@openmrs/esm-framework": 5.x
+    react: 18.x
+    single-spa: 5.x
+  checksum: a750b5d00a502c9d7c9e36f3da5a60083d25c5a818f2f69b4ca53ea9de834b386c53373e6433511335901b41a236bfeccb98bcbd01a1e2533775927cbfb38d0f
+  languageName: node
+  linkType: hard
+
+"@openmrs/esm-patient-common-lib@workspace:packages/esm-patient-common-lib":
   version: 0.0.0-use.local
   resolution: "@openmrs/esm-patient-common-lib@workspace:packages/esm-patient-common-lib"
   dependencies:
@@ -5911,7 +6068,7 @@ __metadata:
   resolution: "@openmrs/esm-patient-conditions-app@workspace:packages/esm-patient-conditions-app"
   dependencies:
     "@carbon/react": ^1.12.0
-    "@openmrs/esm-patient-common-lib": ^5.0.0
+    "@openmrs/esm-patient-common-lib": next
     lodash-es: ^4.17.15
     webpack: ^5.74.0
   peerDependencies:
@@ -5947,7 +6104,7 @@ __metadata:
   resolution: "@openmrs/esm-patient-forms-app@workspace:packages/esm-patient-forms-app"
   dependencies:
     "@carbon/react": ^1.12.0
-    "@openmrs/esm-patient-common-lib": ^5.0.0
+    "@openmrs/esm-patient-common-lib": next
     lodash-es: ^4.17.15
     webpack: ^5.74.0
   peerDependencies:
@@ -5966,7 +6123,7 @@ __metadata:
   resolution: "@openmrs/esm-patient-immunizations-app@workspace:packages/esm-patient-immunizations-app"
   dependencies:
     "@carbon/react": ^1.12.0
-    "@openmrs/esm-patient-common-lib": ^5.0.0
+    "@openmrs/esm-patient-common-lib": next
     lodash-es: ^4.17.15
     webpack: ^5.74.0
   peerDependencies:
@@ -5985,7 +6142,7 @@ __metadata:
   resolution: "@openmrs/esm-patient-medications-app@workspace:packages/esm-patient-medications-app"
   dependencies:
     "@carbon/react": ^1.12.0
-    "@openmrs/esm-patient-common-lib": ^5.0.0
+    "@openmrs/esm-patient-common-lib": next
     lodash-es: ^4.17.15
     webpack: ^5.74.0
   peerDependencies:
@@ -6003,7 +6160,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openmrs/esm-patient-notes-app@workspace:packages/esm-patient-notes-app"
   dependencies:
-    "@openmrs/esm-patient-common-lib": ^5.0.0
+    "@openmrs/esm-patient-common-lib": next
     lodash-es: ^4.17.15
     webpack: ^5.74.0
   peerDependencies:
@@ -6022,7 +6179,7 @@ __metadata:
   resolution: "@openmrs/esm-patient-orders-app@workspace:packages/esm-patient-orders-app"
   dependencies:
     "@carbon/react": ^1.12.0
-    "@openmrs/esm-patient-common-lib": ^5.0.0
+    "@openmrs/esm-patient-common-lib": next
     lodash-es: ^4.17.15
     webpack: ^5.74.0
   peerDependencies:
@@ -6041,7 +6198,7 @@ __metadata:
   resolution: "@openmrs/esm-patient-programs-app@workspace:packages/esm-patient-programs-app"
   dependencies:
     "@carbon/react": ^1.12.0
-    "@openmrs/esm-patient-common-lib": ^5.0.0
+    "@openmrs/esm-patient-common-lib": next
     lodash-es: ^4.17.15
     webpack: ^5.74.0
   peerDependencies:
@@ -6062,7 +6219,7 @@ __metadata:
     "@carbon/charts": ^1.5.2
     "@carbon/charts-react": ^1.5.2
     "@carbon/react": ^1.12.0
-    "@openmrs/esm-patient-common-lib": ^5.0.0
+    "@openmrs/esm-patient-common-lib": next
     d3: ^7.6.1
     lodash-es: ^4.17.15
     webpack: ^5.74.0
@@ -6082,7 +6239,7 @@ __metadata:
   dependencies:
     "@carbon/charts-react": ^1.5.2
     "@carbon/react": ^1.12.0
-    "@openmrs/esm-patient-common-lib": ^5.0.0
+    "@openmrs/esm-patient-common-lib": next
     d3: ^7.6.1
     lodash-es: ^4.17.15
     webpack: ^5.74.0
@@ -6192,8 +6349,8 @@ __metadata:
   linkType: hard
 
 "@openmrs/openmrs-form-engine-lib@npm:next":
-  version: 1.0.0-pre.313
-  resolution: "@openmrs/openmrs-form-engine-lib@npm:1.0.0-pre.313"
+  version: 1.0.0-pre.330
+  resolution: "@openmrs/openmrs-form-engine-lib@npm:1.0.0-pre.330"
   dependencies:
     ace-builds: ^1.4.12
     enzyme: ^3.11.0
@@ -6215,7 +6372,7 @@ __metadata:
     react: ^18.2.0
     react-i18next: 11.x
     rxjs: 6.x
-  checksum: 063450ff7b72c03f8a32929c30f011b4e48f0f5348b835347a9534abc519bf39ddc936302eba9968bb7c57c95deff249b005d5e680ba9b528f40778f87f8a4f1
+  checksum: 86c413fe8b183e8328ddb2c874acf1580102c088745b397ad9ced3612e9f742e8c7f9279d95c9771936310a80f444756cc5a7226590cc4aeb5e50bf134ad1daf
   languageName: node
   linkType: hard
 
@@ -10213,6 +10370,13 @@ __metadata:
     isobject: ^3.0.0
     static-extend: ^0.1.1
   checksum: be108900801e639e50f96a7e4bfa8867c753a7750a7603879f3981f8b0a89cba657497a2d5f40cd4ea557ff15d535a100818bb486baf6e26fe5d7872e75f1078
+  languageName: node
+  linkType: hard
+
+"classnames@npm:2.3.1":
+  version: 2.3.1
+  resolution: "classnames@npm:2.3.1"
+  checksum: 14db8889d56c267a591f08b0834989fe542d47fac659af5a539e110cc4266694e8de86e4e3bbd271157dbd831361310a8293e0167141e80b0f03a0f175c80960
   languageName: node
   linkType: hard
 
